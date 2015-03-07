@@ -23,6 +23,7 @@ xax <- as.POSIXct(paste(powerdata$Date, powerdata$Time, sep= " "), format = "%d/
 submeters <- c("Sub_metering_1","Sub_metering_2","Sub_metering_3")
 legcol <- c("black","red","blue")
 marks1 <- seq(from = 0, to = 6, by = 2)
+marks2 <- seq(from = 234, to = 246, by = 4)
 marks4 <- seq(from = 0.0, to = 0.5, by = 0.1)
 
 
@@ -36,8 +37,8 @@ plot(xax,powerdata$Global_active_power,main="",xlab="",type="l",ylab="")
 
 plot(xax,powerdata$Voltage,ylab="",xlab="", type="l")
   title(main = "", ylab="Voltage",xlab="datetime",las=2,col="black")
-  axis(1, at=c(2,4,6))
-
+axis(2,at=marks2)
+  
 plot(xax,powerdata$Sub_metering_1,type="l",col="black",ylab="",xlab="")
 lines(xax,powerdata$Sub_metering_2,type="l",col="red")
 lines(xax,powerdata$Sub_metering_3,type="l",col="blue")
