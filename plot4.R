@@ -22,6 +22,8 @@ powerdata$Global_active_power <- as.numeric(powerdata$Global_active_power)
 xax <- as.POSIXct(paste(powerdata$Date, powerdata$Time, sep= " "), format = "%d/%m/%Y %H:%M:%S")
 submeters <- c("Sub_metering_1","Sub_metering_2","Sub_metering_3")
 legcol <- c("black","red","blue")
+marks1 <- seq(from = 0, to = 6, by = 2)
+marks4 <- seq(from = 0.0, to = 0.5, by = 0.1)
 
 
 png(filename="plot4.png",
@@ -30,6 +32,7 @@ png(filename="plot4.png",
 par(mfrow=c(2,2))
 plot(xax,powerdata$Global_active_power,main="",xlab="",type="l",ylab="")
   title(ylab="Global Active Power")
+  axis(2,at=marks1)
 
 plot(xax,powerdata$Voltage,ylab="",xlab="", type="l")
   title(main = "", ylab="Voltage",xlab="datetime",las=2,col="black")
@@ -43,7 +46,7 @@ legend("topright",
        submeters, horiz=FALSE, lty=1, col=legcol,bty="n")
 
 plot(xax,powerdata$Global_reactive_power,ylab="",xlab="",type="l")
-  axis(2,at=x)
+  axis(2,at=marks4)
    title(ylab="Global_reactive_power", xlab="datetime", las=2,col="black")
 
 dev.off()
