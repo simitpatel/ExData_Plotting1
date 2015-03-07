@@ -19,7 +19,7 @@ powerdata$Global_active_power <- as.numeric(powerdata$Global_active_power)
 
 #create vectors for axes and legend
 
-x <- c(0,10,20,30)
+xax <- as.POSIXct(paste(powerdata$Date, powerdata$Time, sep= " "), format = "%d/%m/%Y %H:%M:%S")
 submeters <- c("Sub_metering_1","Sub_metering_2","Sub_metering_3")
 legcol <- c("black","red","blue")
 
@@ -28,23 +28,22 @@ png(filename="plot4.png",
         width=480,
     height=480)
 par(mfrow=c(2,2))
-plot(powerdata$Global_active_power,main="",xlab="",type="line",ylab="")
+plot(xax,powerdata$Global_active_power,main="",xlab="",type="l",ylab="")
   title(ylab="Global Active Power")
 
-plot(powerdata$Voltage,ylab="",xlab="")
-  title(main = "", xlab="Global Active Power(kilowatts)", ylab="Voltage",xlab="datetime",las=2,col="black")
+plot(xax,powerdata$Voltage,ylab="",xlab="", type="l")
+  title(main = "", ylab="Voltage",xlab="datetime",las=2,col="black")
   axis(1, at=c(2,4,6))
 
-plot(powerdata$Sub_metering_1,type="line")
-axis(2,at=x)
-lines(powerdata$Sub_metering_2,col="red")
-lines(powerdata$Sub_metering_3,col="blue")
+plot(xax,powerdata$Sub_metering_1,type="l",col="black",ylab="",xlab="")
+lines(xax,powerdata$Sub_metering_2,type="l",col="red")
+lines(xax,powerdata$Sub_metering_3,type="l",col="blue")
 title(ylab="Energy sub metering", las=2,col="black")
 legend("topright", 
-       submeters, horiz=FALSE, lty=1, col=legcol)
+       submeters, horiz=FALSE, lty=1, col=legcol,bty="n")
 
-plot(powerdata$Global_reactive_power)
+plot(xax,powerdata$Global_reactive_power,ylab="",xlab="",type="l")
   axis(2,at=x)
-   title(ylab="Global_reactive_power", las=2,col="black")
+   title(ylab="Global_reactive_power", xlab="datetime", las=2,col="black")
 
 dev.off()

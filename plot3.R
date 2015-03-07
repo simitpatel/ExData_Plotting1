@@ -1,7 +1,3 @@
-#install packages/libraries
-library(dplyr)
-library(lubridate)
-
 #read data
 powerdata <- read.csv("./R/project4/power1/household_power_consumption.txt", sep=";")
 
@@ -17,8 +13,7 @@ powerdata$Sub_metering_3 <- as.numeric(powerdata$Sub_metering_3)
 
 #create vectors for axes and legend
 
-x <- c(0,10,20,30)
-y <- c(0:10000)
+xax <- as.POSIXct(paste(powerdata$Date, powerdata$Time, sep= " "), format = "%d/%m/%Y %H:%M:%S")
 submeters <- c("Sub_metering_1","Sub_metering_2","Sub_metering_3")
 legcol <- c("black","red","blue")
 
@@ -26,13 +21,12 @@ legcol <- c("black","red","blue")
 png(filename="plot3.png",
         width=480,
     height=480)
-plot(powerdata$Sub_metering_1, main="", xlab="", ylab="",type="line",axes=FALSE)
-lines(powerdata$Sub_metering_2,col="red")
-lines(powerdata$Sub_metering_3,col="blue")
-axis(2,at=x)
-axis(1,at=y)
+plot(xax,powerdata$Sub_metering_1,type="l",col="black",ylab="",xlab="")
+lines(xax,powerdata$Sub_metering_2,type="l",col="red")
+lines(xax,powerdata$Sub_metering_3,type="l",col="blue")
      title(ylab="Energy sub metering", las=2,col="black")
 legend("topright", 
        submeters, horiz=FALSE, lty=1, col=legcol)
 
 dev.off()
+
