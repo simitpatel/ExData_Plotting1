@@ -13,7 +13,7 @@ png(filename="plot2.png",
         width=480,
     height=480)
 
-plot(x=xax, y = powerdata$Global_active_power, type="l", ylab="Global Active Power (kilowatts)", xlab="")
+plot(xax, powerdata$Global_active_power, type="l", ylab="Global Active Power (kilowatts)", xlab="")
 axis(2,at=marks1)
 
 
